@@ -1,0 +1,13 @@
+{
+    "name": "function",
+    "description": "...",
+    "private": false,
+    "dependencies": {},
+    "scripts": {
+        "build": "sam build",
+        "start": "sam local start-api",
+        "deploy": "sam deploy --debug",
+        "delete": "npm run destroy"
+    },
+    "devDependencies": {}
+}

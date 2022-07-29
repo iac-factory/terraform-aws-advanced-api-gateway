@@ -1,0 +1,26 @@
+{
+    "name": "function",
+    "description": "...",
+    "private": false,
+    "dependencies": {
+        "jsonwebtoken": "^8.5.1"
+    },
+    "scripts": {
+        "build": "sam build",
+        "start": "sam local start-api",
+        "deploy": "sam deploy --debug",
+        "delete": "npm run destroy",
+        "test": "node --experimental-vm-modules $(command -v jest) --config jest.config.js --injectGlobals --detectOpenHandles",
+        "output": "node terraform.js",
+        "layer": "npm install --silent && npm run output"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "^8.10.101",
+        "@types/jsonwebtoken": "^8.5.8",
+        "dotenv": "^16.0.1",
+        "@jest/globals": "^28.1.2",
+        "@jest/types": "^28.1.0",
+        "@types/jest": "^28.1.4",
+        "jest": "^28.1.2"
+    }
+}

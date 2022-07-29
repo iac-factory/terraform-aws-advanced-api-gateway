@@ -1,0 +1,21 @@
+version = 0.0
+
+[default.global.parameters]
+stack_name = "Secrets-Rotation-Service-Lambda-List-Secrets"
+
+[default.deploy.parameters]
+stack_name = "Secrets-Rotation-Service-Lambda-List-Secrets"
+s3_bucket = "secrets-rotation-service-cfn-stack-s3-bucket"
+s3_prefix = "List-Secrets"
+region = "us-east-2"
+confirm_changeset = false
+capabilities = [
+    "CAPABILITY_IAM",
+    "CAPABILITY_AUTO_EXPAND"
+]
+
+# --> tags = ""
+
+[default.build.parameters]
+container_env_var_file = "env.json"
+no_beta_features = false
