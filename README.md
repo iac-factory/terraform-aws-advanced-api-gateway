@@ -6,6 +6,8 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_vpc-security-groups"></a> [vpc-security-groups](#input_vpc-security-groups) | VPC Security Group Identifier (ID) | `list(string)` | n/a | yes |
+| <a name="input_vpc-subnets"></a> [vpc-subnets](#input_vpc-subnets) | VPC Subnet(s) (Array, IDs) | `list(string)` | n/a | yes |
 | <a name="input_api-gateway-name"></a> [api-gateway-name](#input_api-gateway-name) | AWS API Gateway Common Name | `string` | `"Example-Terraform-Advanced-API-Gateway"` | no |
 | <a name="input_api-gateway-stage-name"></a> [api-gateway-stage-name](#input_api-gateway-stage-name) | AWS API Gateway Stage Name | `string` | `"testing"` | no |
 | <a name="input_lambda-artifacts-bucket"></a> [lambda-artifacts-bucket](#input_lambda-artifacts-bucket) | AWS S3 Bucket Name | `string` | `"example-terraform-advanced-api-gateway-module-bucket"` | no |
@@ -16,8 +18,6 @@
 | <a name="input_lambda-log-group-name"></a> [lambda-log-group-name](#input_lambda-log-group-name) | AWS CloudWatch Log Group for Lambda Function(s) | `string` | `"Example-Terraform-Lambda-Log-Group"` | no |
 | <a name="input_sns-topic-name"></a> [sns-topic-name](#input_sns-topic-name) | AWS SNS Topic Common Name | `string` | `"Example-Terraform-SNS-Topic"` | no |
 | <a name="input_sqs-queue-name"></a> [sqs-queue-name](#input_sqs-queue-name) | AWS SQS Queue Common Name | `string` | `"Example-Terraform-SQS-Queue"` | no |
-| <a name="input_vpc-security-groups"></a> [vpc-security-groups](#input_vpc-security-groups) | VPC Security Group Identifier (ID) | `list(string)` | `[]` | no |
-| <a name="input_vpc-subnets"></a> [vpc-subnets](#input_vpc-subnets) | VPC Subnet(s) (Array, IDs) | `list(string)` | `[]` | no |
 #### Modules
 
 | Name | Source | Version |
@@ -127,7 +127,7 @@ pre-commit --version
 pre-commit install
 pre-commit install-hooks
 ```
-- If any errors show:
+- If any errors show
 ```bash
 git config --unset-all core.hooksPath
 ```
