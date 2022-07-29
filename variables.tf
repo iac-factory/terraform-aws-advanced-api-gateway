@@ -14,20 +14,14 @@ variable "vpc-security-groups" {
     type = list(string)
     description = "VPC Security Group Identifier (ID)"
 
-    default = [
-        "sg-06b04e41938b0cc1c"
-    ]
+    default = [ ]
 }
 
 variable "vpc-subnets" {
     type = list(string)
     description = "VPC Subnet(s) (Array, IDs)"
 
-    default = [
-        "subnet-b0c005fd",
-        "subnet-2cc1a245",
-        "subnet-e6b8139d"
-    ]
+    default = [ ]
 }
 
 variable "lambda-log-group-name" {

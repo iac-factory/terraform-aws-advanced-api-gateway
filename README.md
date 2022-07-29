@@ -16,8 +16,8 @@
 | <a name="input_lambda-log-group-name"></a> [lambda-log-group-name](#input_lambda-log-group-name) | AWS CloudWatch Log Group for Lambda Function(s) | `string` | `"Example-Terraform-Lambda-Log-Group"` | no |
 | <a name="input_sns-topic-name"></a> [sns-topic-name](#input_sns-topic-name) | AWS SNS Topic Common Name | `string` | `"Example-Terraform-SNS-Topic"` | no |
 | <a name="input_sqs-queue-name"></a> [sqs-queue-name](#input_sqs-queue-name) | AWS SQS Queue Common Name | `string` | `"Example-Terraform-SQS-Queue"` | no |
-| <a name="input_vpc-security-groups"></a> [vpc-security-groups](#input_vpc-security-groups) | VPC Security Group Identifier (ID) | `list(string)` | <pre>[<br>  "sg-06b04e41938b0cc1c"<br>]</pre> | no |
-| <a name="input_vpc-subnets"></a> [vpc-subnets](#input_vpc-subnets) | VPC Subnet(s) (Array, IDs) | `list(string)` | <pre>[<br>  "subnet-b0c005fd",<br>  "subnet-2cc1a245",<br>  "subnet-e6b8139d"<br>]</pre> | no |
+| <a name="input_vpc-security-groups"></a> [vpc-security-groups](#input_vpc-security-groups) | VPC Security Group Identifier (ID) | `list(string)` | `[]` | no |
+| <a name="input_vpc-subnets"></a> [vpc-subnets](#input_vpc-subnets) | VPC Subnet(s) (Array, IDs) | `list(string)` | `[]` | no |
 #### Modules
 
 | Name | Source | Version |
