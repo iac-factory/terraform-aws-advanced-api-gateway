@@ -1,8 +1,5 @@
-vpc-security-group-names = ["sg_lambda-rds"]
-vpc-subnet-names = [ "frontend-private-*" ]
+vpc-security-group-names = ["vpc-security-group"]
+vpc-subnet-names = [ "private-subnet-*" ]
 custom-cors-x-headers = [
-    "X-Allow-Banned",
-    "X-No-Cache",
-    "X-List-Type",
-    "X-Is-Admin"
+    "X-No-Cache"
 ]
