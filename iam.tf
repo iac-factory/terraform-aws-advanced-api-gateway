@@ -1,6 +1,5 @@
-################################################################################
-### Trust Policy Documents
-################################################################################
+/*** Trust Policy Documents */
+
 data "aws_iam_policy_document" "cloudwatch-policy-document" {
     statement {
         effect    = "Allow"
@@ -31,9 +30,8 @@ data "aws_iam_policy_document" "sns-policy-document" {
     }
 }
 
-################################################################################
-### Customer Managed Policies
-################################################################################
+/*** Customer Managed Policies */
+
 resource "aws_iam_policy" "sns-policy" {
     name   = format("%s-SNS-Policy", "Example-Terraform-IAM")
     description = "(Auto-Generated IAM Policy)"
@@ -46,17 +44,14 @@ resource "aws_iam_policy" "cloudwatch-policy" {
     policy      = data.aws_iam_policy_document.cloudwatch-policy-document.json
 }
 
-################################################################################
-### AWS Managed Policies
-################################################################################
+/*** AWS Managed Policies */
 
  data "aws_iam_policy" "api-gateway-logging" {
      name = "AmazonAPIGatewayPushToCloudWatchLogs"
  }
 
-################################################################################
-### IAM Role
-################################################################################
+/*** IAM Role */
+
 resource "aws_iam_role" "role" {
     name                  = format("%s-IAM-Role", "Example-Terraform-SNS-API-Publication")
     force_detach_policies = false
@@ -117,9 +112,13 @@ resource "aws_iam_role" "cloudwatch" {
     })
 }
 
+/*** API-Gateway IAM + Logging Enablement */
+
 resource "aws_api_gateway_account" "account" {
     cloudwatch_role_arn = aws_iam_role.cloudwatch.arn
 }
+
+/*** IAM Role + Genearl Policy Attachments */
 
 resource "aws_iam_policy_attachment" "sns-attachment" {
     name       = format("%s-IAM-Policy-Attachment", "Example-Terraform-SNS-API-Publication")
