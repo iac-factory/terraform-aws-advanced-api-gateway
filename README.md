@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# test-authorizers #
+# terraform-aws-advanced-api-gateway #
 
 *Anything with a `ⓘ` is a dropdown containing additional, contextual information.*
 
