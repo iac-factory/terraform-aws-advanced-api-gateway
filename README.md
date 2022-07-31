@@ -49,10 +49,9 @@ custom-cors-x-headers = ["X-No-Cache"]
 
 | Name | Description |
 |------|-------------|
-| <a name="output_cors-headers"></a> [cors-headers](#output_cors-headers) | n/a |
-| <a name="output_data"></a> [data](#output_data) | n/a |
+| <a name="output_data"></a> [data](#output_data) | Validation + Data References Dependent On User-Input |
 | <a name="output_schema"></a> [schema](#output_schema) | AWS API-Gateway Open-API Export + Authorization & X-API-Gateway Extension(s) |
-| <a name="output_sns-publication-message"></a> [sns-publication-message](#output_sns-publication-message) | n/a |
+| <a name="output_sns-publication-message"></a> [sns-publication-message](#output_sns-publication-message) | Example Message for Testing SNS + SQS Integration(s) |
 #### Requirements
 
 | Name | Version |

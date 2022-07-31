@@ -7,6 +7,8 @@ output "schema" {
 /*** {"message":{"information":{"name":"name","parameters":{"identifier":"-1"},"type":"JSON"}},"subject":"subject-name"} */
 
 output "sns-publication-message" {
+    description = "Example Message for Testing SNS + SQS Integration(s)"
+
     value = jsonencode({
         "subject" : "subject-name"
         "message" : {
@@ -22,12 +24,10 @@ output "sns-publication-message" {
 }
 
 output "data" {
+    description = "Validation + Data References Dependent On User-Input"
+
     value = {
         vpc-security-groups = data.aws_security_group.sg[*]
         vpc-subnets = data.aws_subnets.subnets
     }
-}
-
-output "cors-headers" {
-    value = local.cors-headers
 }
