@@ -10,8 +10,6 @@
 terraform init
 ```
 
-2.
-
 ---
 
 #### Inputs
