@@ -1,8 +1,8 @@
 repos:
     -   repo: local
         hooks:
-            -   id: helper
-                name: Helper
+            -   id: setup
+                name: Setup
                 always_run: true
                 entry: ./documentation/helper.sh
                 language: script
