@@ -20,3 +20,14 @@ output "sns-publication-message" {
         }
     })
 }
+
+output "data" {
+    value = {
+        vpc-security-groups = data.aws_security_group.sg[*]
+        vpc-subnets = data.aws_subnets.subnets
+    }
+}
+
+output "cors-headers" {
+    value = local.cors-headers
+}

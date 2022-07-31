@@ -5,7 +5,7 @@ resource "aws_sqs_queue" "queue" {
 }
 
 data "aws_iam_policy_document" "sqs-queue-policy" {
-    policy_id = "arn:aws:sqs:${var.aws-region}:${var.account-id}:${var.sqs-queue-name}/SQSDefaultPolicy"
+    policy_id = "arn:aws:sqs:${var.aws-region}:${var.account-id}:${var.sqs-queue-name}/Default-Policy"
 
     statement {
         effect = "Allow"

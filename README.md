@@ -2,14 +2,27 @@
 # test-authorizers #
 
 *Anything with a `ⓘ` is a dropdown containing additional, contextual information.*
+
+## Setup ##
+
+1. Initialize the module:
+```bash
+terraform init
+```
+
+2.
+
+---
+
 #### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_vpc-security-groups"></a> [vpc-security-groups](#input_vpc-security-groups) | VPC Security Group Identifier (ID) | `list(string)` | n/a | yes |
-| <a name="input_vpc-subnets"></a> [vpc-subnets](#input_vpc-subnets) | VPC Subnet(s) (Array, IDs) | `list(string)` | n/a | yes |
+| <a name="input_vpc-security-group-names"></a> [vpc-security-group-names](#input_vpc-security-group-names) | VPC Security Group (Array, Common-Name) | `list(string)` | n/a | yes |
+| <a name="input_vpc-subnet-names"></a> [vpc-subnet-names](#input_vpc-subnet-names) | VPC Subnet(s) (Array, Common-Name) | `list(string)` | n/a | yes |
 | <a name="input_api-gateway-name"></a> [api-gateway-name](#input_api-gateway-name) | AWS API Gateway Common Name | `string` | `"Example-Terraform-Advanced-API-Gateway"` | no |
 | <a name="input_api-gateway-stage-name"></a> [api-gateway-stage-name](#input_api-gateway-stage-name) | AWS API Gateway Stage Name | `string` | `"testing"` | no |
+| <a name="input_custom-cors-x-headers"></a> [custom-cors-x-headers](#input_custom-cors-x-headers) | n/a | `list` | <pre>[<br>  "X-Allow-Banned",<br>  "X-No-Cache",<br>  "X-List-Type",<br>  "X-Is-Admin"<br>]</pre> | no |
 | <a name="input_lambda-artifacts-bucket"></a> [lambda-artifacts-bucket](#input_lambda-artifacts-bucket) | AWS S3 Bucket Name | `string` | `"example-terraform-advanced-api-gateway-module-bucket"` | no |
 | <a name="input_lambda-authorizer-description"></a> [lambda-authorizer-description](#input_lambda-authorizer-description) | AWS Lambda Function Description | `string` | `"(Auto-Generated AWS Lambda Authorizer Function)"` | no |
 | <a name="input_lambda-authorizer-name"></a> [lambda-authorizer-name](#input_lambda-authorizer-name) | AWS Lambda Function Common Name | `string` | `"Example-Terraform-Authorizer"` | no |
@@ -33,6 +46,8 @@
 
 | Name | Description |
 |------|-------------|
+| <a name="output_cors-headers"></a> [cors-headers](#output_cors-headers) | n/a |
+| <a name="output_data"></a> [data](#output_data) | n/a |
 | <a name="output_schema"></a> [schema](#output_schema) | AWS API-Gateway Open-API Export + Authorization & X-API-Gateway Extension(s) |
 | <a name="output_sns-publication-message"></a> [sns-publication-message](#output_sns-publication-message) | n/a |
 #### Requirements
@@ -64,6 +79,9 @@
 | [aws_iam_policy.api-gateway-logging](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy_document.cloudwatch-policy-document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.sns-policy-document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_security_group.sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/security_group) | data source |
+| [aws_subnets.subnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
+
 ---
 
 ## Documentation ##

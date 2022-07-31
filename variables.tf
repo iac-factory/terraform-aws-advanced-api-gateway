@@ -1,11 +1,11 @@
-variable "vpc-security-groups" {
+variable "vpc-security-group-names" {
     type = list(string)
-    description = "VPC Security Group Identifier (ID)"
+    description = "VPC Security Group (Array, Common-Name)"
 }
 
-variable "vpc-subnets" {
+variable "vpc-subnet-names" {
     type = list(string)
-    description = "VPC Subnet(s) (Array, IDs)"
+    description = "VPC Subnet(s) (Array, Common-Name)"
 }
 
 variable "api-gateway-stage-name" {
@@ -18,6 +18,15 @@ variable "api-gateway-name" {
     type = string
     description = "AWS API Gateway Common Name"
     default = "Example-Terraform-Advanced-API-Gateway"
+}
+
+variable "custom-cors-x-headers" {
+    default = [
+        "X-Allow-Banned",
+        "X-No-Cache",
+        "X-List-Type",
+        "X-Is-Admin"
+    ]
 }
 
 variable "lambda-log-group-name" {

@@ -8,15 +8,17 @@ resource aws_api_gateway_rest_api "api" {
             "version" : "0.0.0"
         },
         "servers" : [ ],
-        "x-amazon-apigateway-endpoint-configuration": {
-            "disableExecuteApiEndpoint": false
+        "x-amazon-apigateway-endpoint-configuration" : {
+            "disableExecuteApiEndpoint" : false
         },
         "paths" : {
-            "/sns": {
-                "post": {
-                    "security": [{
-                        (module.lambda-authorizer.function-name) : []
-                    }],
+            "/sns" : {
+                "post" : {
+                    "security" : [
+                        {
+                            (module.lambda-authorizer.function-name) : [ ]
+                        }
+                    ],
                     "responses" : {
                         "200" : {
                             "description" : "200 Response",
@@ -40,14 +42,21 @@ resource aws_api_gateway_rest_api "api" {
                         "responses" : {
                             "default" : {
                                 "statusCode" : "200",
+                                "headers" : {
+                                    "Access-Control-Allow-Origin" : {
+                                        "schema" : {
+                                            "type" : "string"
+                                        }
+                                    }
+                                },
                                 "responseParameters" : {
                                     "method.response.header.Access-Control-Allow-Origin" : "'*'"
                                 }
                             }
                         },
-                        "credentials" : "arn:$${AWS::Partition}:iam::$${AWS::AccountId}:role/${aws_iam_role.role.name}",
+                        "credentials" : "${local.iam-arn-prefix}:role/${aws_iam_role.role.name}",
                         "httpMethod" : "POST",
-                        "uri": "arn:$${AWS::Partition}:apigateway:${module.region.identifier}:sns:action/Publish",
+                        "uri" : "arn:$${AWS::Partition}:apigateway:${module.region.identifier}:sns:action/Publish",
                         "requestParameters" : {
                             "integration.request.querystring.TopicArn" : "'${module.sns.arn}'",
                             "integration.request.querystring.Subject" : "method.request.body.subject",
@@ -93,7 +102,7 @@ resource aws_api_gateway_rest_api "api" {
                                 "statusCode" : "200",
                                 "responseParameters" : {
                                     "method.response.header.Access-Control-Allow-Methods" : "'*'",
-                                    "method.response.header.Access-Control-Allow-Headers" : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+                                    "method.response.header.Access-Control-Allow-Headers" : local.cors-headers,
                                     "method.response.header.Access-Control-Allow-Origin" : "'*'"
                                 }
                             }
@@ -108,9 +117,11 @@ resource aws_api_gateway_rest_api "api" {
             },
             "/testing" : {
                 "post" : {
-                    "security": [{
-                        (module.lambda-authorizer.function-name): []
-                    }],
+                    "security" : [
+                        {
+                            (module.lambda-authorizer.function-name) : [ ]
+                        }
+                    ],
                     "responses" : {
                         "200" : {
                             "description" : "200 Response",
@@ -159,7 +170,7 @@ resource aws_api_gateway_rest_api "api" {
                     },
                     "x-amazon-apigateway-integration" : {
                         "httpMethod" : "POST",
-                        "uri" : "arn:$${AWS::Partition}:apigateway:$${AWS::Region}:lambda:path/2015-03-31/functions/arn:$${AWS::Partition}:lambda:$${AWS::Region}:$${AWS::AccountId}:function:${module.lambda-function.function-name}/invocations",
+                        "uri" : "${local.lambda-function-uri}:${module.lambda-function.function-name}/invocations",
                         "responses" : {
                             "default" : {
                                 "statusCode" : "200"
@@ -172,7 +183,7 @@ resource aws_api_gateway_rest_api "api" {
                         "timeoutInMillis" : 29000,
                         "contentHandling" : "CONVERT_TO_TEXT",
                         "type" : "aws_proxy",
-                        "payloadFormatVersion": 1.0
+                        "payloadFormatVersion" : 1.0
                     }
                 },
                 "options" : {
@@ -204,9 +215,9 @@ resource aws_api_gateway_rest_api "api" {
                             "default" : {
                                 "statusCode" : "200",
                                 "responseParameters" : {
-                                    "method.response.header.Access-Control-Allow-Methods" = "'*'",
-                                    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-allow-banned,x-no-cache,x-list-type,x-is-admin'",
-                                    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+                                    "method.response.header.Access-Control-Allow-Methods" : "'*'",
+                                    "method.response.header.Access-Control-Allow-Headers" : local.cors-headers,
+                                    "method.response.header.Access-Control-Allow-Origin" : "'*'"
                                 },
                                 "responseTemplates" : {
                                     "application/json" : "{}"
@@ -219,7 +230,7 @@ resource aws_api_gateway_rest_api "api" {
                         "passthroughBehavior" : "when_no_match",
                         "timeoutInMillis" : 29000,
                         "type" : "mock",
-                        "payloadFormatVersion": 1.0
+                        "payloadFormatVersion" : 1.0
                     }
                 }
             }
@@ -238,13 +249,13 @@ resource aws_api_gateway_rest_api "api" {
                 }
             },
             "securitySchemes" : {
-                (module.lambda-authorizer.function-name): {
+                (module.lambda-authorizer.function-name) : {
                     "type" : "apiKey",
                     "name" : "Authorization",
                     "in" : "header",
                     "x-amazon-apigateway-authtype" : "custom",
                     "x-amazon-apigateway-authorizer" : {
-                        "authorizerUri" : "arn:$${AWS::Partition}:apigateway:$${AWS::Region}:lambda:path/2015-03-31/functions/arn:$${AWS::Partition}:lambda:$${AWS::Region}:$${AWS::AccountId}:function:${module.lambda-authorizer.function-name}/invocations",
+                        "authorizerUri": "${local.lambda-function-uri}:${module.lambda-authorizer.function-name}/invocations",
                         "authorizerResultTtlInSeconds" : 300,
                         "type" : "token",
                         "identitySource" : "method.request.header.Authorization"
@@ -256,7 +267,10 @@ resource aws_api_gateway_rest_api "api" {
 }
 
 resource "aws_api_gateway_stage" "stage" {
-    depends_on = [aws_cloudwatch_log_group.api-execution-logs, aws_iam_role.cloudwatch]
+    depends_on = [
+        aws_cloudwatch_log_group.api-execution-logs,
+        aws_iam_role.cloudwatch
+    ]
 
     rest_api_id          = aws_api_gateway_rest_api.api.id
     deployment_id        = aws_api_gateway_deployment.default.id
@@ -268,7 +282,7 @@ resource "aws_api_gateway_stage" "stage" {
     access_log_settings {
         destination_arn = aws_cloudwatch_log_group.api-execution-logs.arn
 
-        format          = jsonencode({
+        format = jsonencode({
             requestId               = "$context.requestId"
             sourceIp                = "$context.identity.sourceIp"
             requestTime             = "$context.requestTime"
@@ -304,7 +318,7 @@ resource "aws_api_gateway_method_settings" "settings" {
     method_path = "*/*"
 
     settings {
-        logging_level                              = "INFO" // "INFO"
+        logging_level                              = "INFO"
         metrics_enabled                            = true
         data_trace_enabled                         = true
         throttling_rate_limit                      = -1
@@ -320,16 +334,16 @@ resource "aws_api_gateway_method_settings" "settings" {
 module "sqs-queue" {
     source = "./modules/sqs"
 
-    account-id = module.identity.account-id
-    aws-region = module.region.identifier
+    account-id     = module.identity.account-id
+    aws-region     = module.region.identifier
     sqs-queue-name = var.sqs-queue-name
 }
 
 module "sns" {
     source = "./modules/sns"
 
-    account-id = module.identity.account-id
-    topic-name = var.sns-topic-name
+    account-id    = module.identity.account-id
+    topic-name    = var.sns-topic-name
     sqs-queue-arn = module.sqs-queue.sqs-queue-arn
 }
 
@@ -353,9 +367,8 @@ module "lambda-function" {
     artifacts-bucket = aws_s3_bucket_versioning.lambda-function-versioning.bucket
 
     vpc-configuration = {
-        security-group-identifiers = var.vpc-security-groups
-
-        subnet-identifiers = var.vpc-subnets
+        security-group-identifiers = data.aws_security_group.sg[ * ].id
+        subnet-identifiers         = data.aws_subnets.subnets.ids
     }
 
     execution-source = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
@@ -370,8 +383,8 @@ module "lambda-authorizer" {
     artifacts-bucket = aws_s3_bucket_versioning.lambda-function-versioning.bucket
 
     vpc-configuration = {
-        security-group-identifiers = var.vpc-security-groups
-        subnet-identifiers = var.vpc-subnets
+        security-group-identifiers = data.aws_security_group.sg[ * ].id
+        subnet-identifiers         = data.aws_subnets.subnets.ids
     }
 
     account-id = module.identity.account-id
