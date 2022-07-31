@@ -10,7 +10,12 @@
 terraform init
 ```
 
----
+2. Create a `terraform.auto.tfvars` file:
+```hcl
+vpc-security-group-names = ["vpc-security-group"]
+vpc-subnet-names = [ "private-subnet-*" ]
+custom-cors-x-headers = ["X-No-Cache"]
+```
 
 #### Inputs
 
