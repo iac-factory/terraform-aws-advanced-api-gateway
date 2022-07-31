@@ -21,12 +21,11 @@ variable "api-gateway-name" {
 }
 
 variable "custom-cors-x-headers" {
-    default = [
-        "X-Allow-Banned",
-        "X-No-Cache",
-        "X-List-Type",
-        "X-Is-Admin"
-    ]
+    type = list(string)
+    description = "List of X-* Headers for OPTIONS (CORS) Response(s)"
+    default = null
+
+    nullable = true
 }
 
 variable "lambda-log-group-name" {

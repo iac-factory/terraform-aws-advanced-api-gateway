@@ -20,7 +20,7 @@ terraform init
 | <a name="input_vpc-subnet-names"></a> [vpc-subnet-names](#input_vpc-subnet-names) | VPC Subnet(s) (Array, Common-Name) | `list(string)` | n/a | yes |
 | <a name="input_api-gateway-name"></a> [api-gateway-name](#input_api-gateway-name) | AWS API Gateway Common Name | `string` | `"Example-Terraform-Advanced-API-Gateway"` | no |
 | <a name="input_api-gateway-stage-name"></a> [api-gateway-stage-name](#input_api-gateway-stage-name) | AWS API Gateway Stage Name | `string` | `"testing"` | no |
-| <a name="input_custom-cors-x-headers"></a> [custom-cors-x-headers](#input_custom-cors-x-headers) | n/a | `list` | <pre>[<br>  "X-Allow-Banned",<br>  "X-No-Cache",<br>  "X-List-Type",<br>  "X-Is-Admin"<br>]</pre> | no |
+| <a name="input_custom-cors-x-headers"></a> [custom-cors-x-headers](#input_custom-cors-x-headers) | List of X-* Headers for OPTIONS (CORS) Response(s) | `list(string)` | `null` | no |
 | <a name="input_lambda-artifacts-bucket"></a> [lambda-artifacts-bucket](#input_lambda-artifacts-bucket) | AWS S3 Bucket Name | `string` | `"example-terraform-advanced-api-gateway-module-bucket"` | no |
 | <a name="input_lambda-authorizer-description"></a> [lambda-authorizer-description](#input_lambda-authorizer-description) | AWS Lambda Function Description | `string` | `"(Auto-Generated AWS Lambda Authorizer Function)"` | no |
 | <a name="input_lambda-authorizer-name"></a> [lambda-authorizer-name](#input_lambda-authorizer-name) | AWS Lambda Function Common Name | `string` | `"Example-Terraform-Authorizer"` | no |
