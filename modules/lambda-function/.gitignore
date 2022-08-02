@@ -1,3 +1,5 @@
 artifacts
 distribution
 node_modules
+
+!./**/*.js

@@ -39,8 +39,6 @@ cdktf.out
 cdktf.out/*
 cdktf.out/**
 
-*.js
-**/*.js
 **/*.map
 **/*.d.ts
 
